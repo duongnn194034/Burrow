@@ -1,0 +1,49 @@
+{
+  "attachments": [
+    {
+      "type": "section",
+      "color": "{{ if gt .Result.Status 1}}danger{{ else }}good{{ end }}",
+      "title": "Kafka consumer's lagging status:",
+      "fields": [
+        {
+          "title": "Group",
+          "value": "{{ .Group }}",
+          "short": false
+        },
+        {
+          "title": "Cluster",
+          "value": "{{ .Cluster }}",
+          "short": true
+        },
+        {
+          "title": "Total Lag",
+          "value": "{{ .Result.TotalLag}}",
+          "short": true
+        },
+        {
+          "title": "Status",
+          "value": "{{ .Result.Status.String }}",
+          "short": true
+        }
+      ]
+    }
+    {{ if gt (len .Result.Partitions) 0 }}
+    ,
+    {
+      "type": "section",
+      "color": "warning",
+      "title": "Detail",
+      "fields": [
+        {{ range $index, $element := .Result.Partitions }}
+        {{ if $index }},{{ end }}
+        {
+          "title": "{{ $element.Topic }}",
+          "value": "{{ $element.CurrentLag }}",
+          "short": false
+        }
+        {{ end }}
+      ]
+    }
+    {{ end }}
+  ]
+}

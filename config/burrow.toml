@@ -13,7 +13,7 @@ use-localtime=false
 use-compression=true
 
 [zookeeper]
-servers=[ "zkhost01.example.com:2181", "zkhost02.example.com:2181", "zkhost03.example.com:2181" ]
+servers=[ "tq.vala.com:2181" ]
 timeout=6
 root-path="/burrow"
 
@@ -23,7 +23,7 @@ kafka-version="0.10.0"
 
 [cluster.local]
 class-name="kafka"
-servers=[ "kafka01.example.com:10251", "kafka02.example.com:10251", "kafka03.example.com:10251" ]
+servers=[ "tq.vala.com:9092" ]
 client-profile="test"
 topic-refresh=120
 offset-refresh=30
@@ -32,7 +32,7 @@ groups-reaper-refresh=0
 [consumer.local]
 class-name="kafka"
 cluster="local"
-servers=[ "kafka01.example.com:10251", "kafka02.example.com:10251", "kafka03.example.com:10251" ]
+servers=[ "tq.vala.com:9092" ]
 client-profile="test"
 group-denylist="^(console-consumer-|python-kafka-consumer-|quick-).*$"
 group-allowlist=""
@@ -40,14 +40,14 @@ group-allowlist=""
 [consumer.local_zk]
 class-name="kafka_zk"
 cluster="local"
-servers=[ "zk01.example.com:2181", "zk02.example.com:2181", "zk03.example.com:2181" ]
-zookeeper-path="/kafka-cluster"
+servers=[ "tq.vala.com:2181" ]
+zookeeper-path="/cluster/id"
 zookeeper-timeout=30
 group-denylist="^(console-consumer-|python-kafka-consumer-|quick-).*$"
 group-allowlist=""
 
 [httpserver.default]
-address=":8000"
+address=":8002"
 
 [storage.default]
 class-name="inmemory"
@@ -58,13 +58,14 @@ min-distance=1
 
 [notifier.default]
 class-name="http"
-url-open="http://someservice.example.com:1467/v1/event"
+url-open="https://hooks.slack.com/services/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"
+url-close="https://hooks.slack.com/services/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"
 interval=60
 timeout=5
 keepalive=30
 extras={ api_key="REDACTED", app="burrow", tier="STG", fabric="mydc" }
-template-open="conf/default-http-post.tmpl"
-template-close="conf/default-http-delete.tmpl"
-method-close="DELETE"
+template-open="Burrow/config/default-slack-open.tmpl"
+template-close="Burrow/config/default-slack-close.tmpl"
+method-close="POST"
 send-close=true
 threshold=1

@@ -140,7 +140,7 @@ func (module *CachingEvaluator) getConsumerStatus(request *protocol.EvaluatorReq
 		status := result.(*protocol.ConsumerGroupStatus)
 
 		if !request.ShowAll {
-			// The requestor only wants partitions that are not StatusOK, so we need to filter the result before
+			// The requester only wants partitions that are not StatusOK, so we need to filter the result before
 			// returning it. However, we can't modify the original, so we need to make a new copy
 			cachedStatus := status
 			status = &protocol.ConsumerGroupStatus{

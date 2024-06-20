@@ -1,0 +1,30 @@
+{
+  "attachments": [
+    {
+      "color": "good",
+      "title": "A kafka consumer is no longer lagging",
+      "fields": [
+        {
+          "title": "Group",
+          "value": "{{ .Group }}",
+          "short": false
+        },
+        {
+          "title": "Cluster",
+          "value": "{{ .Cluster }}",
+          "short": true
+        },
+        {
+          "title": "Total Lag",
+          "value": "{{ .Result.TotalLag}}",
+          "short": true
+        },
+        {
+          "title": "Status",
+          "value": "{{ .Result.Status.String }}",
+          "short": true
+        }
+      ]
+    }
+  ]
+}

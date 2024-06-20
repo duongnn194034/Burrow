@@ -22,8 +22,8 @@ archives:
   - config/default-email.tmpl
   - config/default-http-delete.tmpl
   - config/default-http-post.tmpl
-  - config/default-slack-delete.tmpl
-  - config/default-slack-post.tmpl
+  - config/default-slack-close.tmpl
+  - config/default-slack-open.tmpl
 snapshot:
   name_template: "{{ .FullCommit }}"
 dockers:
