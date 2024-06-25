@@ -58,8 +58,8 @@ min-distance=1
 
 [notifier.default]
 class-name="http"
-url-open="https://hooks.slack.com/services/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"
-url-close="https://hooks.slack.com/services/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"
+url-open="https://hooks.slack.com/services/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"
+url-close="https://hooks.slack.com/services/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"
 interval=60
 timeout=5
 keepalive=30
@@ -69,3 +69,4 @@ template-close="Burrow/config/default-slack-close.tmpl"
 method-close="POST"
 send-close=true
 threshold=1
+send-err-only=true

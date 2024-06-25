@@ -291,6 +291,7 @@ func (hc *Coordinator) configNotifierNull(w http.ResponseWriter, r *http.Request
 
 func (hc *Coordinator) configNotifierDetail(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	configRoot := "notifier." + params.ByName("name")
+	hc.Log.Info(configRoot)
 	if !viper.IsSet(configRoot) {
 		hc.writeErrorResponse(w, r, http.StatusNotFound, "notifier module not found")
 	} else {

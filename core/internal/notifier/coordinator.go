@@ -561,8 +561,12 @@ func (nc *Coordinator) notifyModule(module Module, status *protocol.ConsumerGrou
 
 	// Only send the notification if it's been at least our Interval since the last one for this group
 	currentTime := time.Now()
-	if currentTime.Sub(cgroup.LastNotify[module.GetName()]) > (time.Duration(viper.GetInt("notifier."+moduleName+".send-interval")) * time.Second) {
+	configRoot := "notifier." + moduleName
+	if currentTime.Sub(cgroup.LastNotify[module.GetName()]) > (time.Duration(viper.GetInt("notifier."+moduleName+".send-interval"))*time.Second) &&
+		(!viper.GetBool(configRoot+".send-err-only") || status.Status > protocol.StatusOK) {
 		module.Notify(status, eventID, startTime, false)
 		cgroup.LastNotify[module.GetName()] = currentTime
+	} else {
+		module.GetLogger().Info(status.Group + ": OK")
 	}
 }
